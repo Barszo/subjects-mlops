@@ -1,0 +1,53 @@
+# Wspólne zależności dla wszystkich notebooków przedmiotu „Techniki MLOps”.
+# Instalacja jednorazowa: pip install -r requirements.txt
+
+# --- środowisko notebookowe ---
+ipykernel==7.3.0
+nbclient==0.11.0
+nbformat==5.11.1
+
+# --- dane, modele i wykresy (zajęcia 1-13) ---
+joblib==1.6.0
+matplotlib==3.11.1
+numpy==2.5.3
+pandas==3.0.5
+scikit-learn==1.9.0
+scipy==1.18.1
+
+# --- konfiguracja i kontrakty danych (zajęcia 2-4) ---
+pandera==0.33.1
+python-dotenv==1.2.3
+PyYAML==6.0.3
+requests==2.34.2
+
+# --- narzędzia projektowe i wersjonowanie danych (zajęcia 2-4) ---
+dvc==3.67.1
+pre-commit==4.6.2
+ruff==0.16.6
+uv==0.12.12
+
+# --- śledzenie eksperymentów i rejestr modeli (zajęcia 5, 7, 10, 12) ---
+mlflow==3.16.0
+
+# --- testowanie (zajęcia 6 i kolejne) ---
+hypothesis==6.168.0
+ipytest==0.14.2
+pytest==9.1.1
+
+# --- pakowanie i udostępnianie modelu (zajęcia 7-8) ---
+fastapi==0.141.1
+httpx==0.28.1
+pydantic==2.13.5
+skops==0.14.0
+uvicorn==0.52.4
+
+# --- łańcuch dostaw (zajęcia 9) ---
+pip-audit==2.10.1
+
+# --- obserwowalność i dryf (zajęcia 11-12) ---
+evidently==0.7.21
+nannyml==0.13.1
+opentelemetry-exporter-otlp-proto-http==1.44.0
+opentelemetry-instrumentation-fastapi==0.65b0
+opentelemetry-sdk==1.44.0
+prometheus-client==0.26.0
