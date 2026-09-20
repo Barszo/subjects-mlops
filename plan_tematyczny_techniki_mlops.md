@@ -6,6 +6,7 @@
 - **Forma zaliczenia:** indywidualny projekt końcowy z krótką prezentacją i obroną.
 - **Założenia wstępne:** podstawowa znajomość Pythona, Git, uczenia maszynowego i pracy w terminalu.
 - **Stan aktualności planu:** wrzesień 2026 r. Narzędzia są przykładami realizacji praktyk, a nie celem przedmiotu.
+- **Wymagana wersja Pythona:** **3.12** (np. 3.12.x). Część bibliotek z `requirements.txt` — w szczególności `nannyml` używany na spotkaniu 12 — nie ma jeszcze wydania wspierającego Python 3.13 ani nowszego. Środowisko `.venv` należy tworzyć z interpretera 3.12, a nie z najnowszej wersji zainstalowanej w systemie.
 
 ### Czteroetapowy przebieg pracy
 
