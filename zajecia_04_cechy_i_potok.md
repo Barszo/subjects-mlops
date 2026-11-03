@@ -68,6 +68,31 @@ Poprawnie:
 - **cechy liczone wyłącznie z przeszłości** względem momentu predykcji (*point-in-time correctness*);
 - **uwzględnienie opóźnienia danych** — jeżeli wartość jest znana dopiero po trzech dniach, model nie może jej użyć wcześniej.
 
+Przykład: sklep przewiduje, czy paczka dotrze na czas. Model ocenia paczkę **w chwili nadania** — i tylko to, co wtedy wiadomo, może być cechą.
+
+**Podział czasowy.** Uczymy się na starszych paczkach, sprawdzamy na nowszych:
+
+```text
+BŁĄD:      losowo wymieszane paczki z całego roku → trening i test przeplatają się w czasie
+POPRAWNIE: paczki od stycznia do września → trening, paczki z października → test
+```
+
+**Cechy liczone z przeszłości.** Cecha „odsetek spóźnień do danego kodu pocztowego” dla paczki nadanej 10 marca:
+
+```text
+BŁĄD:      odsetek liczony z całej tabeli — obejmuje też paczki z kwietnia i maja
+POPRAWNIE: odsetek liczony z paczek sprzed 10 marca
+```
+
+Błędna wersja korzysta z przyszłości, której model po wdrożeniu nie zobaczy.
+
+**Opóźnienie danych.** Kurier przysyła informacje o doręczeniach z trzydniowym opóźnieniem, więc 10 marca wiemy, co wydarzyło się do 7 marca. Cecha „liczba spóźnień w ostatnim tygodniu” dla paczki nadanej 10 marca:
+
+```text
+BŁĄD:      okno 3–9 marca  → w treningu policzy się bez problemu, po wdrożeniu dwóch dni brakuje
+POPRAWNIE: okno 1–7 marca  → tylko dane, które realnie są już dostępne
+```
+
 Praktyczne pytanie kontrolne dla każdej cechy: **czy w momencie predykcji ta wartość jest już znana?** Jeżeli odpowiedź brzmi „zwykle tak”, to znaczy „czasem nie” — i trzeba to obsłużyć jawnie.
 
 ## 5. Feature store — kiedy naprawdę jest potrzebny

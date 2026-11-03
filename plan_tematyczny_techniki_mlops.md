@@ -592,7 +592,253 @@ Wszystko z poziomu 4,5 oraz:
   - ewaluacja, tracing i zabezpieczenia dla projektu RAG/LLM;
   - infrastruktura jako kod dla środowiska demonstracyjnego.
 
-## 9. Wspólne warunki zaliczenia i sposób oceny
+### Gdzie znaleźć materiał do każdego wymagania
+
+Poniższe tabele wskazują, na którym spotkaniu omawiana jest technika potrzebna do spełnienia danego punktu. Dokument spotkania to `zajecia_NN_*.md`, materiał referencyjny to `gotowe_notebooki/zajecia_NN.ipynb`.
+
+#### Ocena 3,0
+
+| Wymaganie | Spotkanie | Gdzie dokładnie |
+|---|---|---|
+| opis problemu, użytkownika, danych i metryki sukcesu | 1 | `zajecia_01_od_modelu_do_systemu_ml.md` |
+| publiczny zbiór: charakterystyka, źródło, licencja | 3 | `zajecia_03_dane_kontrakt_governance.md` — metryczka zbioru |
+| model adekwatny do problemu wraz z uzasadnieniem | 1, 5 | `zajecia_01_…md`; kryterium wyboru w `zajecia_05_sledzenie_eksperymentow.md` |
+| indywidualne repozytorium z historią | 2 | `zajecia_02_powtarzalne_srodowisko.md` — sekcja „poza notebookiem” |
+| jedna komenda: przygotowanie, trening, ewaluacja | 2 | `zajecia_02_…md` — komendy `prepare`, `train`, `evaluate` |
+| przypięte zależności, blokada, wersja Pythona, konfiguracja, ziarna | 2 | `zajecia_02_…md` — `pyproject.toml`, `uv.lock`, `.python-version` |
+| wersja danych lub manifest z sumą kontrolną | 3 | `zajecia_03_…md` — manifest i DVC |
+| model bazowy i poprawny podział danych | 1, 5 | baseline w `zajecia_01_…md`; podział w `zajecia_05_…md` |
+| zapis metryk i modelu jako artefaktów | 1, 5 | `gotowe_notebooki/zajecia_01.ipynb`, `…/zajecia_05.ipynb` |
+| README działające po świeżym klonie | 2 | `zajecia_02_…md` |
+
+#### Ocena 3,5
+
+| Wymaganie | Spotkanie | Gdzie dokładnie |
+|---|---|---|
+| potok z jawnych, powtarzalnych etapów | 4 | `zajecia_04_cechy_i_potok.md` — `dvc.yaml`, `dvc repro` |
+| śledzenie parametrów, metryk i artefaktów | 5 | `zajecia_05_sledzenie_eksperymentow.md` — MLflow Tracking |
+| automatyczna walidacja schematu i jakości danych | 3 | `zajecia_03_…md` — schemat `pandera`, raport walidacji |
+| testy jednostkowe transformacji i test progu jakości | 6 | `zajecia_06_testowanie.md` |
+| wspólna transformacja cech + test zgodności | 4, 6 | cechy w `zajecia_04_…md`; test skew w `zajecia_06_…md` |
+| porównanie ≥3 kontrolowanych eksperymentów | 5 | `zajecia_05_…md` |
+| karta modelu | 7 | `zajecia_07_pakowanie_i_rejestr.md` |
+
+#### Ocena 4,0
+
+| Wymaganie | Spotkanie | Gdzie dokładnie |
+|---|---|---|
+| CI: testy, walidacja i trening kontrolny na czystym runnerze | 9 | `zajecia_09_kontenery_ci_lancuch_dostaw.md` — workflow GitHub Actions |
+| model jako usługa API albo zadanie wsadowe | 8 | `zajecia_08_udostepnianie_modelu.md` + `artifacts/zajecia_08/src/` |
+| jawny, wersjonowany kontrakt I/O oraz jego test | 8, 6 | kontrakt w `zajecia_08_…md`; test kontraktu w `zajecia_06_…md` |
+| kontener budowany automatycznie | 9 | `zajecia_09_…md` — `Dockerfile`, budowa w CI, `ghcr.io` |
+| rejestr wersji, alias, reguła promocji | 7 | `zajecia_07_…md` — sekcja o aliasach i bramkach |
+| skan zależności/obrazu, SBOM, brak sekretów w historii | 9 | `zajecia_09_…md` — `pip-audit`, `trivy`, `gitleaks`, `docker buildx --sbom` |
+
+#### Ocena 4,5
+
+| Wymaganie | Spotkanie | Gdzie dokładnie |
+|---|---|---|
+| automatyczne dostarczenie na staging lub demo | 10 | `zajecia_10_dostarczanie_i_wdrozenia.md` |
+| canary, shadow lub blue-green | 10 | `zajecia_10_…md` — dwa środowiska w `compose` i router wagowy |
+| rollback albo przetestowana procedura wycofania | 10 | `zajecia_10_…md` — punkt kontrolny z pomiarem czasu wycofania |
+| metryka systemowa, metryka danych i metryka modelu | 11 | `zajecia_11_obserwowalnosc_i_monitoring.md` — cztery warstwy |
+| progi alertów oraz dashboard lub raport | 11 | `zajecia_11_…md` — Prometheus, Grafana, reguły alertów |
+| wykrycie zasymulowanego dryfu i reakcja | 12 | `zajecia_12_dryf_ct_llmops.md` — Evidently, scenariusze dryfu |
+| model zagrożeń i rejestr ryzyk | 10, 12 | model zagrożeń w `zajecia_10_…md`; rejestr ryzyk w `zajecia_12_…md` |
+
+#### Ocena 5,0
+
+| Wymaganie | Spotkanie | Gdzie dokładnie |
+|---|---|---|
+| mechanizm wyboru championa i challengera | 7, 10, 12 | aliasy w `zajecia_07_…md`; podział ruchu w `zajecia_10_…md`; automatyczne porównanie w `zajecia_12_…md` |
+| kontrolowane ponowne trenowanie | 12 | `zajecia_12_…md` — wyzwalacze CT, `schedule` w CI |
+| automatyczne bramki jakości blokujące promocję | 7, 12 | `zajecia_07_…md` (bramka przy rejestracji), `zajecia_12_…md` (bramka challengera) |
+| lineage od wdrożonej wersji do kodu, danych i eksperymentu | 4, 7 | lineage artefaktów w `zajecia_04_…md`; `lineage.json` w `zajecia_07_…md` |
+| SLI/SLO oraz runbook incydentowy | 11, 12 | SLI/SLO w `zajecia_11_…md`; runbook w `zajecia_12_…md` |
+| test scenariusza awarii | 13 | `zajecia_13_prezentacje_i_przeglad.md` — „game day”, lista scenariuszy |
+
+#### Rozszerzenia
+
+| Rozszerzenie | Spotkanie | Gdzie dokładnie |
+|---|---|---|
+| jakość i fairness w podgrupach | 12 | `zajecia_12_…md` |
+| podpisywanie artefaktów, SBOM, weryfikacja pochodzenia | 9 | `zajecia_09_…md` — `--provenance`, atestacje |
+| test obciążeniowy, optymalizacja kosztu lub opóźnienia | 8, 11 | pomiar opóźnienia w `zajecia_08_…md`; histogramy i percentyle w `zajecia_11_…md` |
+| point-in-time correct feature pipeline | 4 | `zajecia_04_…md` — poprawność czasowa cech |
+| ewaluacja, tracing i zabezpieczenia RAG/LLM | 12, 11 | blok LLMOps w `zajecia_12_…md`; tracing w `zajecia_11_…md` |
+| infrastruktura jako kod | 10 | `zajecia_10_…md` — przegląd |
+
+
+## 9. Raport z projektu
+
+Raport jest dokumentem oddawanym razem z repozytorium i stanowi podstawę oceny. Nie zastępuje kodu — **opisuje decyzje i wskazuje dowody**, które znajdują się w repozytorium. Każde twierdzenie w raporcie musi dać się zweryfikować przez wskazany plik, przebieg CI ORAZ zrzut ekranu.
+
+### Forma
+
+- **Format:** PDF
+- **Objętość:** orientacyjnie (faktycznie liczba stron może się różnić): 8–15 stron dla ocen 3,0–4,0; do 20 stron dla ocen 4,5–5,0. Zrzuty ekranu, tabele i listingi wliczają się do objętości.
+- **Odnośniki do repozytorium:** zawsze w postaci ścieżki względnej, np. `src/features.py`, `tests/test_contract.py`, `.github/workflows/ci.yml`. Przy odwołaniu do konkretnego przebiegu CI podaj pełny adres URL.
+
+### Sekcja 0 — deklaracja poziomu i mapa dowodów
+
+**To jest pierwsza strona raportu i ma obowiązkowy charakter.** Bez niej raport nie jest przyjmowany do oceny.
+
+Zawiera:
+
+1. **Deklarowaną ocenę** — jedną wartość z zakresu 3,0 / 3,5 / 4,0 / 4,5 / 5,0. Deklaracja jest wiążąca: projekt oceniany jest względem wymagań tego poziomu i wszystkich niższych.
+2. **Tabelę mapy dowodów** — dla **każdego** punktu z sekcji 8 do deklarowanego poziomu włącznie: gdzie w raporcie jest to opisane i gdzie w repozytorium znajduje się dowód.
+
+Wzór tabeli:
+
+| # | Wymaganie (sekcja 8) | Poziom | Sekcja raportu | Strona | Dowód w repozytorium |
+|---:|---|---|---|---:|---|
+| 1 | jasno opisany problem, użytkownik, dane i metryka sukcesu | 3,0 | 1.1, 1.3 | 3 | `README.md` |
+| 2 | jedna komenda uruchamia przygotowanie, trening i ewaluację | 3,0 | 3.2 | 7 | `Makefile`, cel `make all` |
+| 3 | manifest danych z sumą kontrolną | 3,0 | 2.2 | 5 | `data/manifest.json`, `data/raw.csv.dvc` |
+| 4 | test progu jakości modelu | 3,5 | 5.1 | 11 | `tests/test_model_quality.py::test_min_f1` |
+| 5 | SBOM oraz skan zależności | 4,0 | 7.3 | 16 | `reports/sbom.json`, przebieg CI #87 |
+| … | … | … | … | … | … |
+
+**Rysunek obowiązkowy na tej stronie:** diagram architektury systemu w jednym kadrze — od źródła danych, przez potok i rejestr modeli, po sposób udostępnienia i monitoring. Wystarczy diagram blokowy; narzędzie dowolne.
+
+### Struktura raportu
+
+#### 1. Problem i kontekst
+
+- 1.1. Opis problemu biznesowego lub badawczego — co system ma przewidywać i po co.
+- 1.2. Użytkownik systemu i sposób konsumpcji predykcji (kto, jak często, w jakim trybie).
+- 1.3. Metryka sukcesu: techniczna i, jeśli da się ją sformułować, biznesowa.
+- 1.4. Zakres i świadome ograniczenia projektu — czego projekt celowo nie robi.
+
+#### 2. Dane
+
+- 2.1. Źródło, licencja, rozmiar, liczba rekordów i kolumn, zmienna objaśniana.
+- 2.2. Wersjonowanie: manifest z sumą kontrolną lub DVC, sposób pobrania danych od zera.
+- 2.3. Kontrakt danych — schemat, typy, zakresy, dopuszczalne braki; co się dzieje przy jego złamaniu.
+- 2.4. Jakość danych: braki, duplikaty, wartości odstające, balans klas.
+- 2.5. Ryzyka: dane osobowe, stronniczość zbioru, ograniczenia licencyjne, retencja.
+
+**Wizualizacje:** rozkład zmiennej objaśnianej (histogram lub wykres słupkowy); mapa braków danych albo tabela kompletności kolumn; macierz korelacji lub rozkłady 3–5 najważniejszych cech. Dla szeregów czasowych dodatkowo wykres zmiennej w czasie z zaznaczoną granicą podziału train/test.
+
+#### 3. Potok i środowisko
+
+- 3.1. Struktura repozytorium — drzewo katalogów z komentarzem, co gdzie leży.
+- 3.2. Pojedyncza komenda uruchomieniowa i co dokładnie wykonuje.
+- 3.3. Etapy potoku i ich zależności; które artefakty powstają na którym etapie.
+- 3.4. Przypięcie zależności, wersja Pythona, konfiguracja poza kodem, ziarna losowości.
+- 3.5. Granice reprodukowalności — co nadal może się różnić między uruchomieniami i dlaczego.
+
+**Wizualizacje:** graf etapów potoku (np. wynik `dvc dag` albo własny diagram); zrzut ekranu z udanego przebiegu `dvc repro` lub `make all`.
+
+#### 4. Model i eksperymenty
+
+- 4.1. Model bazowy — co nim jest i jaki wynik osiąga.
+- 4.2. Wybrany model i uzasadnienie wyboru dla tych danych i tego problemu.
+- 4.3. Podział danych i sposób zabezpieczenia przed wyciekiem.
+- 4.4. Kryterium wyboru modelu **zdefiniowane przed eksperymentami**.
+- 4.5. Tabela porównawcza eksperymentów: identyfikator przebiegu, parametry, metryki, wniosek.
+- 4.6. Analiza błędów — gdzie model myli się najczęściej.
+
+**Wizualizacje:** tabela porównawcza przebiegów (minimum trzy wiersze dla oceny 3,5 i wyżej); macierz pomyłek lub wykres reszt; krzywa ROC/PR albo wykres predykcja–wartość rzeczywista; zrzut ekranu z porównania przebiegów w MLflow. Przy strojeniu hiperparametrów — wykres metryki względem wartości parametru.
+
+#### 5. Testy
+
+- 5.1. Tabela: nazwa testu → co chroni → jaki defekt wykryje.
+- 5.2. Test zgodności transformacji cech między treningiem a predykcją.
+- 5.3. Testy własności, jeśli są wymagane na deklarowanym poziomie — jaki niezmiennik opisują.
+- 5.4. Czas wykonania całego zestawu.
+
+**Wizualizacje:** zrzut ekranu z wyniku `pytest` (podsumowanie, nie cały log); opcjonalnie raport pokrycia.
+
+#### 6. Pakowanie modelu i udostępnienie
+
+- 6.1. Format artefaktu modelu, sygnatura wejścia i wyjścia, przykład wejścia.
+- 6.2. Rejestr modeli: wersje, aliasy, reguła promocji.
+- 6.3. Karta modelu — pełna treść albo odnośnik do `docs/model_card.md` ze streszczeniem w raporcie.
+- 6.4. Sposób udostępnienia: API albo zadanie wsadowe; kontrakt i jego wersjonowanie.
+- 6.5. Pomiar opóźnienia — mediana oraz p95 lub p99, dla żądania pojedynczego i zbiorczego.
+
+**Wizualizacje:** przykładowe żądanie i odpowiedź (JSON); zrzut dokumentacji OpenAPI lub schematu Pydantic; tabela albo histogram opóźnień.
+
+#### 7. CI i łańcuch dostaw
+
+- 7.1. Kroki potoku CI i ich kolejność; co blokuje scalenie.
+- 7.2. Kontener: obraz bazowy, budowanie wieloetapowe, użytkownik bez uprawnień administratora, rozmiar obrazu.
+- 7.3. Bezpieczeństwo: skan zależności, skan obrazu, skan sekretów, SBOM.
+- 7.4. Odnośnik do udanego przebiegu CI oraz digest opublikowanego obrazu.
+
+**Wizualizacje:** zrzut ekranu zielonego przebiegu z zakładki Actions; zrzut jednego **czerwonego** przebiegu z krótkim opisem, co go zatrzymało i jak zostało naprawione; fragment raportu skanera.
+
+#### 8. Wdrożenie i wycofanie
+
+- 8.1. Środowiska i sposób promocji artefaktu między nimi.
+- 8.2. Strategia zmiany wersji (canary, shadow, blue-green) i kryteria decyzji.
+- 8.3. Procedura wycofania wraz ze **zmierzonym** czasem jej wykonania.
+- 8.4. Model zagrożeń dla wdrożonej usługi.
+
+**Wizualizacje:** diagram przepływu wdrożenia; wykres podziału ruchu w czasie lub tabela decyzji canary; oś czasu zdarzeń podczas wycofania.
+
+#### 9. Monitoring i obserwowalność
+
+- 9.1. Metryki czterech warstw: system, dane wejściowe, predykcje, jakość i wartość biznesowa.
+- 9.2. SLI, SLO i budżet błędu.
+- 9.3. Reguły alertów i uzasadnienie progów.
+- 9.4. Sposób postępowania w okresie braku etykiet.
+
+**Wizualizacje:** zrzut dashboardu albo wygenerowany raport cykliczny; wykres jednej metryki w czasie z zaznaczonym progiem alertu; opcjonalnie ślad pojedynczego żądania z Jaegera.
+
+#### 10. Dryf i ponowne trenowanie
+
+- 10.1. Scenariusz zasymulowanego dryfu i sposób jego detekcji.
+- 10.2. Wynik detekcji i podjęta reakcja — również wtedy, gdy właściwą reakcją było jej brak.
+- 10.3. Wyzwalacz ponownego treningu i bramka decydująca o promocji.
+- 10.4. Porównanie championa z challengerem.
+
+**Wizualizacje:** porównanie rozkładu referencyjnego i bieżącego dla cechy z dryfem; wykres wskaźnika dryfu w czasie; wykres estymacji jakości bez etykiet zestawiony z jakością rzeczywistą, jeśli projekt używa CBPE.
+
+#### 11. Ryzyka, incydenty i runbook
+
+- 11.1. Rejestr ryzyk: ryzyko, prawdopodobieństwo, skutek, reakcja, właściciel.
+- 11.2. Runbook incydentowy: jak rozpoznać, co zrobić natychmiast, jak potwierdzić, kogo poinformować.
+- 11.3. Przeprowadzony test scenariusza awarii i jego wynik.
+
+#### 12. Podsumowanie
+
+- 12.1. Co zadziałało, a co okazało się trudniejsze niż zakładano.
+- 12.2. Trzy najważniejsze decyzje projektowe i ich alternatywy, które zostały odrzucone.
+- 12.3. Co zrobić dalej, gdyby projekt miał trafić na produkcję.
+
+#### 13. Nota o użyciu asystentów AI
+
+Krótki akapit: do czego asystent był wykorzystany, gdzie jego propozycja została odrzucona lub poprawiona i dlaczego. Brak tej sekcji jest brakiem formalnym.
+
+#### 14. Źródła
+
+Zbiór danych, biblioteki o istotnym znaczeniu dla rozwiązania, dokumentacja i materiały, z których korzystano.
+
+### Które sekcje są obowiązkowe na którym poziomie
+
+| Sekcja | 3,0 | 3,5 | 4,0 | 4,5 | 5,0 |
+|---|:-:|:-:|:-:|:-:|:-:|
+| 0. Deklaracja i mapa dowodów | tak | tak | tak | tak | tak |
+| 1. Problem i kontekst | tak | tak | tak | tak | tak |
+| 2. Dane | tak | tak | tak | tak | tak |
+| 3. Potok i środowisko | tak | tak | tak | tak | tak |
+| 4. Model i eksperymenty | tak | tak | tak | tak | tak |
+| 5. Testy | — | tak | tak | tak | tak |
+| 6. Pakowanie i udostępnienie | — | częściowo (6.3) | tak | tak | tak |
+| 7. CI i łańcuch dostaw | — | — | tak | tak | tak |
+| 8. Wdrożenie i wycofanie | — | — | — | tak | tak |
+| 9. Monitoring | — | — | — | tak | tak |
+| 10. Dryf i ponowne trenowanie | — | — | — | częściowo | tak |
+| 11. Ryzyka i runbook | — | — | — | częściowo | tak |
+| 12. Podsumowanie | tak | tak | tak | tak | tak |
+| 13. Nota o AI | tak | tak | tak | tak | tak |
+| 14. Źródła | tak | tak | tak | tak | tak |
+
+Sekcja pominięta zgodnie z powyższą tabelą nie wymaga komentarza. Sekcja wymagana, lecz pusta, obniża ocenę tak samo jak brak odpowiadającej jej funkcjonalności.
+
+## 10. Wspólne warunki zaliczenia i sposób oceny
 
 Niezależnie od deklarowanego poziomu:
 
@@ -630,7 +876,7 @@ Proponowane wagi pomocnicze:
 
 Poziom funkcjonalny określa najwyższą możliwą ocenę, a jakość realizacji obszarów z tabeli pozwala ją potwierdzić lub obniżyć.
 
-## 10. Minimalna infrastruktura dla prowadzącego
+## 11. Minimalna infrastruktura dla prowadzącego
 
 - szablon repozytorium z małym przykładowym zbiorem, konfiguracją kontenera deweloperskiego i skryptem bootstrap;
 - **jedna** platforma CI z runnerem oraz oszacowany budżet minut na grupę;
@@ -656,7 +902,7 @@ Poziom funkcjonalny określa najwyższą możliwą ocenę, a jakość realizacji
 | `host.docker.internal` z kontenera | na niektórych konfiguracjach wymaga dodatkowego wpisu |
 | aktualność `rev` w `.pre-commit-config.yaml` | nieaktualna wersja zatrzymuje pierwszy commit studenta |
 
-## 11. Rekomendowane źródła i dokumentacja
+## 12. Rekomendowane źródła i dokumentacja
 
 ### Podstawa — do przeczytania w trakcie semestru
 
